@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Cliente } from "@/types";
-import { Search, Plus, Edit, Mail, Phone, MapPin, Trash2, UserPlus } from "lucide-react";
+import { Servico } from "@/types";
+import { Search, Plus, Edit, Trash2, Briefcase } from "lucide-react";
 import { FormModal } from "@/components/common/FormModal";
-import { ClienteForm } from "./ClienteForm";
+import { ServicoForm } from "./ServicoForm";
 import { useFormModal } from "@/hooks/useFormModal";
 import { useCRUD } from "@/hooks/useCRUD";
-import { ClienteFormData } from "@/schemas";
+import { ServicoFormData } from "@/schemas";
+import { formatCurrency } from "@/utils/formatters";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,17 +22,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-interface ClientesListProps {
-  clientes: Cliente[];
-  onClienteSelect: (cliente: Cliente) => void;
-  onNovoCliente: () => void;
+interface ServicosListProps {
+  servicos: Servico[];
+  onServicoSelect: (servico: Servico) => void;
+  onNovoServico: () => void;
 }
 
-export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: ClientesListProps) {
+export function ServicosListWithCRUD({ servicos, onServicoSelect, onNovoServico }: ServicosListProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [clienteToDelete, setClienteToDelete] = useState<Cliente | null>(null);
+  const [servicoToDelete, setServicoToDelete] = useState<Servico | null>(null);
   
-  const { items, create, update, remove } = useCRUD(clientes, "Cliente");
+  const { items, create, update, remove } = useCRUD(servicos, "Serviço");
   
   const {
     isOpen,
@@ -42,25 +43,25 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
     closeModal,
     handleSubmit,
     isEditing,
-  } = useFormModal<ClienteFormData>({
+  } = useFormModal<ServicoFormData>({
     onSubmit: create,
     onEdit: (data) => update(data.id!, data),
   });
 
-  const filteredClientes = items.filter(cliente =>
-    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    cliente.cpf.includes(searchTerm) ||
-    cliente.email?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredServicos = items.filter(servico =>
+    servico.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    servico.descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    servico.categoria.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = (cliente: Cliente) => {
-    setClienteToDelete(cliente);
+  const handleDelete = (servico: Servico) => {
+    setServicoToDelete(servico);
   };
 
   const confirmDelete = () => {
-    if (clienteToDelete?.id) {
-      remove(clienteToDelete.id);
-      setClienteToDelete(null);
+    if (servicoToDelete?.id) {
+      remove(servicoToDelete.id);
+      setServicoToDelete(null);
     }
   };
 
@@ -68,86 +69,68 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold">Clientes</h2>
+          <h2 className="text-2xl font-bold">Serviços</h2>
           <p className="text-muted-foreground">
-            Gerencie todos os clientes da RV Digital
+            Gerencie todos os serviços oferecidos
           </p>
         </div>
         <Button onClick={openModal} className="shadow-elegant">
-          <UserPlus className="h-4 w-4 mr-2" />
-          Novo Cliente
+          <Briefcase className="h-4 w-4 mr-2" />
+          Novo Serviço
         </Button>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
         <Input
-          placeholder="Buscar por nome, CPF ou email..."
+          placeholder="Buscar por nome, descrição ou categoria..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="pl-10"
         />
       </div>
 
-      <div className="grid gap-4">
-        {filteredClientes.map((cliente) => (
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {filteredServicos.map((servico) => (
           <Card 
-            key={cliente.id} 
+            key={servico.id} 
             className="hover:shadow-elegant transition-all duration-300 cursor-pointer group"
-            onClick={() => onClienteSelect(cliente)}
+            onClick={() => onServicoSelect(servico)}
           >
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
-                <div>
+                <div className="flex-1">
                   <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                    {cliente.nome}
+                    {servico.nome}
                   </CardTitle>
-                  <p className="text-sm text-muted-foreground">
-                    CPF: {cliente.cpf}
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {servico.descricao}
                   </p>
                 </div>
-                <div className="flex gap-2">
-                  <Badge variant={cliente.ativo ? "default" : "secondary"}>
-                    {cliente.ativo ? "Ativo" : "Inativo"}
-                  </Badge>
-                  {cliente.categoria && (
-                    <Badge variant="outline">{cliente.categoria.nome}</Badge>
-                  )}
-                </div>
+                <Badge variant={servico.ativo ? "default" : "secondary"}>
+                  {servico.ativo ? "Ativo" : "Inativo"}
+                </Badge>
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                {cliente.email && (
-                  <div className="flex items-center gap-1">
-                    <Mail className="h-3 w-3" />
-                    {cliente.email}
-                  </div>
-                )}
-                {cliente.telefone && (
-                  <div className="flex items-center gap-1">
-                    <Phone className="h-3 w-3" />
-                    {cliente.telefone}
-                  </div>
-                )}
-                {cliente.enderecos && cliente.enderecos.length > 0 && (
-                  <div className="flex items-center gap-1">
-                    <MapPin className="h-3 w-3" />
-                    {cliente.enderecos[0].cidade}, {cliente.enderecos[0].estado}
-                  </div>
-                )}
-              </div>
-              <div className="flex justify-between items-center mt-4">
-                <span className="text-xs text-muted-foreground">
-                  Nascimento: {new Date(cliente.dataNascimento).toLocaleDateString('pt-BR')}
-                </span>
-                <div className="flex gap-2">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Valor:</span>
+                  <span className="text-lg font-semibold text-primary">
+                    {formatCurrency(servico.valor)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Categoria:</span>
+                  <Badge variant="outline">{servico.categoria}</Badge>
+                </div>
+                <div className="flex justify-end gap-2 pt-2">
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      openEditModal(cliente);
+                      openEditModal(servico);
                     }}
                   >
                     <Edit className="h-3 w-3" />
@@ -157,7 +140,7 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
                     size="sm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDelete(cliente);
+                      handleDelete(servico);
                     }}
                   >
                     <Trash2 className="h-3 w-3" />
@@ -169,11 +152,11 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
         ))}
       </div>
 
-      {filteredClientes.length === 0 && (
+      {filteredServicos.length === 0 && (
         <Card>
           <CardContent className="text-center py-8">
             <p className="text-muted-foreground">
-              {searchTerm ? "Nenhum cliente encontrado com os critérios de busca." : "Nenhum cliente cadastrado ainda."}
+              {searchTerm ? "Nenhum serviço encontrado com os critérios de busca." : "Nenhum serviço cadastrado ainda."}
             </p>
             <Button 
               variant="outline" 
@@ -181,7 +164,7 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
               className="mt-4"
             >
               <Plus className="h-4 w-4 mr-2" />
-              Cadastrar Primeiro Cliente
+              Cadastrar Primeiro Serviço
             </Button>
           </CardContent>
         </Card>
@@ -190,21 +173,21 @@ export function ClientesList({ clientes, onClienteSelect, onNovoCliente }: Clien
       <FormModal
         isOpen={isOpen}
         onClose={closeModal}
-        title={isEditing ? "Editar Cliente" : "Novo Cliente"}
+        title={isEditing ? "Editar Serviço" : "Novo Serviço"}
       >
-        <ClienteForm
+        <ServicoForm
           onSubmit={handleSubmit}
           initialData={editingItem}
           isLoading={isLoading}
         />
       </FormModal>
 
-      <AlertDialog open={!!clienteToDelete} onOpenChange={() => setClienteToDelete(null)}>
+      <AlertDialog open={!!servicoToDelete} onOpenChange={() => setServicoToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
             <AlertDialogDescription>
-              Tem certeza que deseja excluir o cliente "{clienteToDelete?.nome}"?
+              Tem certeza que deseja excluir o serviço "{servicoToDelete?.nome}"?
               Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>

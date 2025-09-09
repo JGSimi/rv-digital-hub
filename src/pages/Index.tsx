@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Dashboard } from "@/components/dashboard/Dashboard";
 import { ClientesList } from "@/components/clientes/ClientesList";
-import { ContratosList } from "@/components/contratos/ContratosList";
-import { ServicosList } from "@/components/servicos/ServicosList";
-import { CategoriasList } from "@/components/categorias/CategoriasList";
+import { ContratosListWithCRUD } from "@/components/contratos/ContratosListWithCRUD";
+import { ServicosListWithCRUD } from "@/components/servicos/ServicosListWithCRUD";
+import { CategoriasListWithCRUD } from "@/components/categorias/CategoriasListWithCRUD";
 import { 
   mockClientes, 
   mockContratos, 
@@ -89,7 +89,7 @@ const Index = () => {
         );
       case "contratos":
         return (
-          <ContratosList
+          <ContratosListWithCRUD
             contratos={mockContratos}
             onContratoSelect={handleContratoSelect}
             onNovoContrato={handleNovoContrato}
@@ -97,7 +97,7 @@ const Index = () => {
         );
       case "servicos":
         return (
-          <ServicosList
+          <ServicosListWithCRUD
             servicos={mockServicos}
             onServicoSelect={handleServicoSelect}
             onNovoServico={handleNovoServico}
@@ -105,7 +105,7 @@ const Index = () => {
         );
       case "categorias":
         return (
-          <CategoriasList
+          <CategoriasListWithCRUD
             categorias={mockCategorias}
             onCategoriaSelect={handleCategoriaSelect}
             onNovaCategoria={handleNovaCategoria}
