@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Import SCSS modules
+@import 'variables';
+@import 'mixins';
+@import 'themes';
+@import 'components';
+@import 'app';

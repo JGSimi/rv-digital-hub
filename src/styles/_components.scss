@@ -1,0 +1,235 @@
+// Component-specific styles using SCSS
+@import 'variables';
+@import 'mixins';
+
+// Custom component styles that complement Tailwind classes
+
+// Enhanced button styles
+.btn-premium {
+  @include button-base;
+  @include button-variant($primary, $primary-foreground);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.btn-glass {
+  @include button-base;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--foreground);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Enhanced card styles
+.card-hover {
+  @include card-base;
+  @include card-hover;
+}
+
+.card-glass {
+  @include card-base;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Loading animations
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Mobile-specific component styles
+@include mobile {
+  .mobile-card {
+    @include card-base;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    
+    .card-header {
+      @include flex-between;
+      margin-bottom: 0.75rem;
+      
+      h3 {
+        @include heading-3;
+        font-size: 1.125rem;
+      }
+    }
+    
+    .card-content {
+      @include small-text;
+      color: var(--muted-foreground);
+    }
+    
+    .card-actions {
+      @include flex-between;
+      margin-top: 0.75rem;
+      gap: 0.5rem;
+    }
+  }
+  
+  .mobile-header {
+    @include flex-between;
+    padding: 1rem;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  .mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    background: var(--sidebar-background);
+    border-right: 1px solid var(--sidebar-border);
+    transform: translateX(-100%);
+    @include smooth-transition(transform);
+    z-index: 100;
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Desktop-specific styles
+@include desktop {
+  .desktop-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+  
+  .desktop-sidebar {
+    background: var(--sidebar-background);
+    border-right: 1px solid var(--sidebar-border);
+  }
+  
+  .desktop-main {
+    overflow-x: auto;
+  }
+}
+
+// Form enhancements
+.form-group {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+  }
+  
+  input, textarea, select {
+    @include input-base;
+  }
+  
+  .form-error {
+    color: var(--destructive);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-help {
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+}
+
+// Table enhancements
+.table-responsive {
+  @include mobile {
+    overflow-x: auto;
+    
+    table {
+      min-width: 600px;
+    }
+  }
+}
+
+// Notification styles
+.notification {
+  @include card-base;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  @include fadeIn;
+  
+  &.success {
+    border-left: 4px solid var(--success);
+    background: rgba($success, 0.05);
+  }
+  
+  &.warning {
+    border-left: 4px solid var(--warning);
+    background: rgba($warning, 0.05);
+  }
+  
+  &.error {
+    border-left: 4px solid var(--destructive);
+    background: rgba($destructive, 0.05);
+  }
+}
+
+// Utility classes with SCSS
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-glow {
+  @include shadow-glow;
+}

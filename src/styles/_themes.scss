@@ -1,0 +1,99 @@
+// Theme definitions using SCSS variables
+@import 'variables';
+
+@layer base {
+  :root {
+    --background: #{$background-light};
+    --foreground: #{$foreground-light};
+
+    --card: #{$card-light};
+    --card-foreground: #{$card-foreground-light};
+
+    --popover: #{$popover-light};
+    --popover-foreground: #{$popover-foreground-light};
+
+    --primary: #{$primary};
+    --primary-foreground: #{$primary-foreground};
+    --primary-hover: #{$primary-hover};
+    --primary-glow: #{$primary-glow};
+
+    --secondary: #{$secondary};
+    --secondary-foreground: #{$secondary-foreground};
+
+    --muted: #{$muted};
+    --muted-foreground: #{$muted-foreground};
+
+    --accent: #{$accent};
+    --accent-foreground: #{$accent-foreground};
+
+    --success: #{$success};
+    --success-foreground: #{$success-foreground};
+
+    --warning: #{$warning};
+    --warning-foreground: #{$warning-foreground};
+
+    --destructive: #{$destructive};
+    --destructive-foreground: #{$destructive-foreground};
+
+    --border: #{$border};
+    --input: #{$input};
+    --ring: #{$ring};
+
+    /* Custom design tokens */
+    --gradient-primary: linear-gradient(135deg, #{$primary}, #{$primary-glow});
+    --gradient-subtle: linear-gradient(135deg, #{$muted}, #{$secondary});
+    --shadow-elegant: 0 4px 16px -4px #{rgba($primary, 0.1)};
+    --shadow-card: 0 2px 8px -2px #{rgba(hsl(217, 19%, 27%), 0.08)};
+    --transition-smooth: #{$transition-smooth};
+
+    --radius: #{$radius};
+
+    --sidebar-background: #{$sidebar-background};
+    --sidebar-foreground: #{$sidebar-foreground};
+    --sidebar-primary: #{$sidebar-primary};
+    --sidebar-primary-foreground: #{$sidebar-primary-foreground};
+    --sidebar-accent: #{$sidebar-accent};
+    --sidebar-accent-foreground: #{$sidebar-accent-foreground};
+    --sidebar-border: #{$sidebar-border};
+    --sidebar-ring: #{$sidebar-ring};
+  }
+
+  .dark {
+    --background: #{$background-dark};
+    --foreground: #{$foreground-dark};
+
+    --card: #{$card-dark};
+    --card-foreground: #{$card-foreground-dark};
+
+    --popover: #{$popover-dark};
+    --popover-foreground: #{$popover-foreground-dark};
+
+    --primary: #{$primary-dark};
+    --primary-foreground: #{$primary-foreground-dark};
+
+    --secondary: #{$secondary-dark};
+    --secondary-foreground: #{$secondary-foreground-dark};
+
+    --muted: #{$muted-dark};
+    --muted-foreground: #{$muted-foreground-dark};
+
+    --accent: #{$accent-dark};
+    --accent-foreground: #{$accent-foreground-dark};
+
+    --destructive: #{$destructive-dark};
+    --destructive-foreground: #{$destructive-foreground-dark};
+
+    --border: #{$border-dark};
+    --input: #{$input-dark};
+    --ring: #{$ring-dark};
+
+    --sidebar-background: #{$sidebar-background-dark};
+    --sidebar-foreground: #{$sidebar-foreground-dark};
+    --sidebar-primary: #{$sidebar-primary-dark};
+    --sidebar-primary-foreground: #{$sidebar-primary-foreground-dark};
+    --sidebar-accent: #{$sidebar-accent-dark};
+    --sidebar-accent-foreground: #{$sidebar-accent-foreground-dark};
+    --sidebar-border: #{$sidebar-border-dark};
+    --sidebar-ring: #{$sidebar-ring-dark};
+  }
+}
