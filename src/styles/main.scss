@@ -12,8 +12,11 @@
 @use 'layout';
 @use 'responsive';
 
-// Utility classes
+// Utility classes (replacing Tailwind)
 @use 'utilities';
+
+// UI Components (replacing shadcn/ui)
+@use 'components-ui';
 
 // Component-specific styles
 @use 'components';
@@ -21,7 +24,4 @@
 // Application-specific styles (last to override if needed)
 @use 'app';
 
-// Tailwind directives (after SCSS to allow overrides)
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Pure SCSS - No Tailwind needed
