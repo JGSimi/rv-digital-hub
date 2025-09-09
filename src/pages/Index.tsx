@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sidebar } from "@/components/layout/Sidebar";
+import { ResponsiveLayout } from "@/components/layout/ResponsiveLayout";
 import { Dashboard } from "@/components/dashboard/Dashboard";
 import { ClientesList } from "@/components/clientes/ClientesList";
 import { ContratosListWithCRUD } from "@/components/contratos/ContratosListWithCRUD";
@@ -128,15 +128,12 @@ const Index = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar 
-        activeSection={activeSection} 
-        onSectionChange={setActiveSection} 
-      />
-      <main className="flex-1 p-6 overflow-auto">
-        {renderContent()}
-      </main>
-    </div>
+    <ResponsiveLayout 
+      activeSection={activeSection} 
+      onSectionChange={setActiveSection}
+    >
+      {renderContent()}
+    </ResponsiveLayout>
   );
 };
 

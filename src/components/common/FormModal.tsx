@@ -1,10 +1,5 @@
 import { ReactNode } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ResponsiveModal } from "@/components/common/ResponsiveModal";
 
 interface FormModalProps {
   isOpen: boolean;
@@ -15,13 +10,13 @@ interface FormModalProps {
 
 export function FormModal({ isOpen, onClose, title, children }: FormModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-        </DialogHeader>
-        {children}
-      </DialogContent>
-    </Dialog>
+    <ResponsiveModal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title={title} 
+      className="max-w-2xl max-h-[90vh] overflow-y-auto"
+    >
+      {children}
+    </ResponsiveModal>
   );
 }

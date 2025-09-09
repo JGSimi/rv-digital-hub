@@ -1,13 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardMetricsCards } from "./DashboardMetrics";
+import { MobileDashboard } from "./MobileDashboard";
 import { DashboardMetrics } from "@/types";
 import { TrendingUp, Users, FileText, Calendar } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
 interface DashboardProps {
   metrics: DashboardMetrics;
 }
 export function Dashboard({
   metrics
 }: DashboardProps) {
+  const isMobile = useMobile();
+
+  if (isMobile) {
+    return <MobileDashboard metrics={metrics} />;
+  }
   const recentActivity = [{
     id: 1,
     type: "cliente",
