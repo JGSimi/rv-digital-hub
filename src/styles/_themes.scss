@@ -1,4 +1,5 @@
 // Theme definitions using SCSS variables
+@use 'sass:color';
 @use 'variables' as *;
 
 @layer base {
@@ -41,7 +42,7 @@
 
     /* Custom design tokens */
     --gradient-primary: linear-gradient(135deg, #{$primary}, #{$primary-glow});
-    --gradient-secondary: linear-gradient(135deg, #{$secondary}, #{lighten($secondary, 10%)});
+    --gradient-secondary: linear-gradient(135deg, #{$secondary}, #{color.adjust($secondary, $lightness: 10%)});
     --gradient-subtle: linear-gradient(135deg, #{$muted}, #{$accent});
     --shadow-elegant: 0 4px 16px -4px #{rgba($primary, 0.15)};
     --shadow-card: 0 2px 8px -2px #{rgba($primary, 0.08)};
