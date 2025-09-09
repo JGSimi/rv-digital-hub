@@ -2,38 +2,32 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardMetricsCards } from "./DashboardMetrics";
 import { DashboardMetrics } from "@/types";
 import { TrendingUp, Users, FileText, Calendar } from "lucide-react";
-
 interface DashboardProps {
   metrics: DashboardMetrics;
 }
-
-export function Dashboard({ metrics }: DashboardProps) {
-  const recentActivity = [
-    {
-      id: 1,
-      type: "cliente",
-      description: "Novo cliente cadastrado: Ana Paula Ferreira",
-      time: "2 horas atrás",
-      icon: Users,
-    },
-    {
-      id: 2,
-      type: "contrato",
-      description: "Contrato #003 marcado como pendente",
-      time: "5 horas atrás", 
-      icon: FileText,
-    },
-    {
-      id: 3,
-      type: "reunion",
-      description: "Reunião agendada com João Silva Santos",
-      time: "1 dia atrás",
-      icon: Calendar,
-    },
-  ];
-
-  return (
-    <div className="space-y-6">
+export function Dashboard({
+  metrics
+}: DashboardProps) {
+  const recentActivity = [{
+    id: 1,
+    type: "cliente",
+    description: "Novo cliente cadastrado: Ana Paula Ferreira",
+    time: "2 horas atrás",
+    icon: Users
+  }, {
+    id: 2,
+    type: "contrato",
+    description: "Contrato #003 marcado como pendente",
+    time: "5 horas atrás",
+    icon: FileText
+  }, {
+    id: 3,
+    type: "reunion",
+    description: "Reunião agendada com João Silva Santos",
+    time: "1 dia atrás",
+    icon: Calendar
+  }];
+  return <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-muted-foreground">
@@ -79,10 +73,9 @@ export function Dashboard({ metrics }: DashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentActivity.map((activity) => {
-                const Icon = activity.icon;
-                return (
-                  <div key={activity.id} className="flex items-start gap-3">
+              {recentActivity.map(activity => {
+              const Icon = activity.icon;
+              return <div key={activity.id} className="flex items-start gap-3">
                     <div className="bg-primary/10 p-2 rounded-full">
                       <Icon className="h-3 w-3 text-primary" />
                     </div>
@@ -90,41 +83,16 @@ export function Dashboard({ metrics }: DashboardProps) {
                       <p className="text-sm font-medium">{activity.description}</p>
                       <p className="text-xs text-muted-foreground">{activity.time}</p>
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
           </CardContent>
         </Card>
       </div>
 
       <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle>Próximos Passos Recomendados</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="p-4 bg-gradient-subtle rounded-lg">
-              <h4 className="font-semibold mb-2">Acompanhar Contratos Pendentes</h4>
-              <p className="text-sm text-muted-foreground">
-                Há 1 contrato pendente aguardando aprovação do cliente.
-              </p>
-            </div>
-            <div className="p-4 bg-gradient-subtle rounded-lg">
-              <h4 className="font-semibold mb-2">Renovações do Mês</h4>
-              <p className="text-sm text-muted-foreground">
-                2 contratos vencem este mês e precisam de renovação.
-              </p>
-            </div>
-            <div className="p-4 bg-gradient-subtle rounded-lg">
-              <h4 className="font-semibold mb-2">Follow-up de Clientes</h4>
-              <p className="text-sm text-muted-foreground">
-                Entrar em contato com clientes inativos para reengajamento.
-              </p>
-            </div>
-          </div>
-        </CardContent>
+        
+        
       </Card>
-    </div>
-  );
+    </div>;
 }
