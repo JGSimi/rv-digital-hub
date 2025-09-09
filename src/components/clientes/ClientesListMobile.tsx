@@ -4,11 +4,11 @@ import { MobileCard } from "@/components/ui/mobile-card";
 import { Button } from "@/components/ui/button";
 import { Plus, Phone, Mail, Edit, Trash2 } from "lucide-react";
 import { formatCPF, formatPhone } from "@/utils/formatters";
-import { mockData } from "@/data/mockData";
+import { mockClientes } from "@/data/mockData";
 import { useMobile } from "@/hooks/use-mobile";
 
 export function ClientesListWithCRUD() {
-  const [clientes] = useState<Cliente[]>(mockData.clientes);
+  const [clientes] = useState<Cliente[]>(mockClientes);
   const isMobile = useMobile();
 
   if (isMobile) {
