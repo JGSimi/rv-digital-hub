@@ -1,5 +1,5 @@
 // Theme definitions using SCSS variables
-@import 'variables';
+@use 'variables' as *;
 
 @layer base {
   :root {

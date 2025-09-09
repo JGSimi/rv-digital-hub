@@ -1,6 +1,6 @@
 // Component-specific styles using SCSS
-@import 'variables';
-@import 'mixins';
+@use 'variables' as *;
+@use 'mixins' as *;
 
 // Custom component styles that complement Tailwind classes
 

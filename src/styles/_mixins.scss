@@ -1,5 +1,5 @@
 // SCSS Mixins for responsive design and utilities
-@import 'variables';
+@use 'variables' as *;
 
 // Responsive Breakpoints
 @mixin mobile {
@@ -40,16 +40,40 @@
 }
 
 // Transition mixins
-@mixin smooth-transition($property: all) {
-  transition: #{$property} #{$transition-smooth};
+@mixin smooth-transition($properties...) {
+  $property-list: ();
+  @each $property in $properties {
+    $property-list: append($property-list, #{$property} #{$transition-smooth}, comma);
+  }
+  @if length($properties) == 0 {
+    transition: #{$transition-smooth};
+  } @else {
+    transition: $property-list;
+  }
 }
 
-@mixin fast-transition($property: all) {
-  transition: #{$property} #{$transition-fast};
+@mixin fast-transition($properties...) {
+  $property-list: ();
+  @each $property in $properties {
+    $property-list: append($property-list, #{$property} #{$transition-fast}, comma);
+  }
+  @if length($properties) == 0 {
+    transition: #{$transition-fast};
+  } @else {
+    transition: $property-list;
+  }
 }
 
-@mixin slow-transition($property: all) {
-  transition: #{$property} #{$transition-slow};
+@mixin slow-transition($properties...) {
+  $property-list: ();
+  @each $property in $properties {
+    $property-list: append($property-list, #{$property} #{$transition-slow}, comma);
+  }
+  @if length($properties) == 0 {
+    transition: #{$transition-slow};
+  } @else {
+    transition: $property-list;
+  }
 }
 
 // Button mixins

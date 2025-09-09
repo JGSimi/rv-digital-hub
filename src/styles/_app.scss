@@ -1,6 +1,6 @@
 // App-specific styles using SCSS
-@import 'variables';
-@import 'mixins';
+@use 'variables' as *;
+@use 'mixins' as *;
 
 // Legacy app styles (converted to SCSS)
 #root {
