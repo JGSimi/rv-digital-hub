@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: rv-digital-mysql
+    environment:
+      MYSQL_DATABASE: rv_digital_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: rvdigital
+      MYSQL_PASSWORD: rvdigital123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./RV-Digital-Backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/data.sql
+    restart: unless-stopped
+    networks:
+      - rv-digital-network
+
+  backend:
+    build:
+      context: ./RV-Digital-Backend
+      dockerfile: Dockerfile
+    container_name: rv-digital-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/rv_digital_db
+      SPRING_DATASOURCE_USERNAME: rvdigital
+      SPRING_DATASOURCE_PASSWORD: rvdigital123
+      JWT_SECRET: minha-chave-secreta-muito-segura-para-jwt-tokens-producao
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    networks:
+      - rv-digital-network
+
+  frontend:
+    build:
+      context: ./RV-Digital-Frontend
+      dockerfile: Dockerfile
+    container_name: rv-digital-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - rv-digital-network
+
+volumes:
+  mysql_data:
+
+networks:
+  rv-digital-network:
+    driver: bridge
