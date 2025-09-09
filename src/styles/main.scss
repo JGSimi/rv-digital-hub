@@ -1,10 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-// Import SCSS modules using modern @use syntax
+// Import SCSS modules using modern @use syntax (must come first)
 @use 'variables' as *;
 @use 'mixins' as *;
 @use 'themes';
 @use 'components';
 @use 'app';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
