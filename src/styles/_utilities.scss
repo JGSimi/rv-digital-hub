@@ -1,0 +1,440 @@
+// Utility classes using SCSS
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Typography utilities
+.text {
+  &-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  
+  &-sm {
+    @include small-text;
+  }
+  
+  &-base {
+    @include body-text;
+  }
+  
+  &-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  
+  &-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  
+  &-2xl {
+    @include heading-3;
+  }
+  
+  &-3xl {
+    @include heading-2;
+  }
+  
+  &-4xl {
+    @include heading-1;
+  }
+}
+
+.font {
+  &-light {
+    font-weight: 300;
+  }
+  
+  &-normal {
+    font-weight: 400;
+  }
+  
+  &-medium {
+    font-weight: 500;
+  }
+  
+  &-semibold {
+    font-weight: 600;
+  }
+  
+  &-bold {
+    font-weight: 700;
+  }
+}
+
+.text-color {
+  &-primary {
+    color: var(--primary);
+  }
+  
+  &-secondary {
+    color: var(--secondary-foreground);
+  }
+  
+  &-muted {
+    color: var(--muted-foreground);
+  }
+  
+  &-success {
+    color: var(--success);
+  }
+  
+  &-warning {
+    color: var(--warning);
+  }
+  
+  &-destructive {
+    color: var(--destructive);
+  }
+}
+
+// Spacing utilities
+.m {
+  &-0 { margin: 0; }
+  &-1 { margin: 0.25rem; }
+  &-2 { margin: 0.5rem; }
+  &-3 { margin: 0.75rem; }
+  &-4 { margin: 1rem; }
+  &-5 { margin: 1.25rem; }
+  &-6 { margin: 1.5rem; }
+  &-8 { margin: 2rem; }
+  &-auto { margin: auto; }
+}
+
+.p {
+  &-0 { padding: 0; }
+  &-1 { padding: 0.25rem; }
+  &-2 { padding: 0.5rem; }
+  &-3 { padding: 0.75rem; }
+  &-4 { padding: 1rem; }
+  &-5 { padding: 1.25rem; }
+  &-6 { padding: 1.5rem; }
+  &-8 { padding: 2rem; }
+}
+
+// Background utilities
+.bg {
+  &-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  
+  &-secondary {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+  
+  &-muted {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+  }
+  
+  &-card {
+    background-color: var(--card);
+    color: var(--card-foreground);
+  }
+  
+  &-gradient {
+    background: var(--gradient-primary);
+    color: var(--primary-foreground);
+  }
+}
+
+// Border utilities
+.border {
+  border: 1px solid var(--border);
+  
+  &-t {
+    border-top: 1px solid var(--border);
+  }
+  
+  &-r {
+    border-right: 1px solid var(--border);
+  }
+  
+  &-b {
+    border-bottom: 1px solid var(--border);
+  }
+  
+  &-l {
+    border-left: 1px solid var(--border);
+  }
+  
+  &-0 {
+    border: none;
+  }
+}
+
+.rounded {
+  border-radius: var(--radius);
+  
+  &-sm {
+    border-radius: calc(var(--radius) - 2px);
+  }
+  
+  &-lg {
+    border-radius: calc(var(--radius) + 2px);
+  }
+  
+  &-full {
+    border-radius: 50%;
+  }
+  
+  &-none {
+    border-radius: 0;
+  }
+}
+
+// Shadow utilities
+.shadow {
+  &-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  &-base {
+    box-shadow: var(--shadow-card);
+  }
+  
+  &-md {
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  &-lg {
+    @include shadow-elegant;
+  }
+  
+  &-glow {
+    @include shadow-glow;
+  }
+  
+  &-none {
+    box-shadow: none;
+  }
+}
+
+// Interactive utilities
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+  
+  &-default {
+    cursor: default;
+  }
+  
+  &-not-allowed {
+    cursor: not-allowed;
+  }
+}
+
+.select {
+  &-none {
+    user-select: none;
+  }
+  
+  &-text {
+    user-select: text;
+  }
+  
+  &-all {
+    user-select: all;
+  }
+}
+
+// Transition utilities
+.transition {
+  @include smooth-transition;
+  
+  &-fast {
+    @include fast-transition;
+  }
+  
+  &-slow {
+    @include slow-transition;
+  }
+  
+  &-none {
+    transition: none;
+  }
+}
+
+// Animation utilities
+.animate {
+  &-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  &-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  &-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  &-spin {
+    animation: spin 1s linear infinite;
+  }
+}
+
+// Hover utilities
+.hover {
+  &-scale {
+    @include smooth-transition(transform);
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  &-lift {
+    @include smooth-transition(transform, box-shadow);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-elegant);
+    }
+  }
+  
+  &-glow {
+    @include smooth-transition(box-shadow);
+    
+    &:hover {
+      @include shadow-glow;
+    }
+  }
+}
+
+// Glass effect utilities
+.glass {
+  &-light {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  &-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  &-primary {
+    background: rgba($primary-glow, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($primary-glow, 0.2);
+  }
+}
+
+// Gradient utilities
+.gradient {
+  &-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  &-border {
+    background: var(--gradient-primary);
+    padding: 1px;
+    border-radius: var(--radius);
+    
+    > * {
+      background: var(--background);
+      border-radius: calc(var(--radius) - 1px);
+    }
+  }
+}
+
+// Responsive visibility utilities
+.visible {
+  &-mobile {
+    @include desktop {
+      display: none;
+    }
+  }
+  
+  &-desktop {
+    @include mobile {
+      display: none;
+    }
+  }
+}
+
+// Loading states
+.loading {
+  position: relative;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    z-index: 1;
+  }
+}
+
+// Focus utilities
+.focus {
+  &-ring {
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+  
+  &-ring-offset {
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 4px;
+    }
+  }
+}
+
+// Overflow utilities
+.overflow {
+  &-hidden {
+    overflow: hidden;
+  }
+  
+  &-auto {
+    overflow: auto;
+  }
+  
+  &-scroll {
+    overflow: scroll;
+  }
+  
+  &-x-auto {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  &-y-auto {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

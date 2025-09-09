@@ -1,0 +1,504 @@
+// Responsive design patterns using SCSS
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Responsive containers
+.responsive-container {
+  width: 100%;
+  margin: 0 auto;
+  
+  @include mobile {
+    padding: 0 1rem;
+    max-width: none;
+  }
+  
+  @include tablet {
+    padding: 0 1.5rem;
+    max-width: 768px;
+  }
+  
+  @include desktop {
+    padding: 0 2rem;
+    max-width: 1024px;
+  }
+  
+  @include xl-desktop {
+    max-width: 1280px;
+  }
+}
+
+// Responsive grid systems
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+  
+  &.auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  &.auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  // Responsive breakpoint grids
+  &.grid-responsive {
+    grid-template-columns: 1fr;
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @include xl-desktop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &.grid-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    
+    @include mobile {
+      gap: 0.75rem;
+    }
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+}
+
+// Responsive typography
+.responsive-text {
+  &.heading {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    
+    @include tablet {
+      font-size: 2rem;
+    }
+    
+    @include desktop {
+      font-size: 2.5rem;
+    }
+    
+    @include xl-desktop {
+      font-size: 3rem;
+    }
+  }
+  
+  &.subheading {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    
+    @include tablet {
+      font-size: 1.5rem;
+    }
+    
+    @include desktop {
+      font-size: 1.75rem;
+    }
+  }
+  
+  &.body {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    
+    @include tablet {
+      font-size: 1rem;
+    }
+    
+    @include desktop {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+// Responsive spacing
+.responsive-spacing {
+  &.section {
+    padding: 2rem 0;
+    
+    @include tablet {
+      padding: 3rem 0;
+    }
+    
+    @include desktop {
+      padding: 4rem 0;
+    }
+    
+    @include xl-desktop {
+      padding: 6rem 0;
+    }
+  }
+  
+  &.component {
+    padding: 1rem;
+    
+    @include tablet {
+      padding: 1.5rem;
+    }
+    
+    @include desktop {
+      padding: 2rem;
+    }
+  }
+  
+  &.gap {
+    gap: 0.75rem;
+    
+    @include tablet {
+      gap: 1rem;
+    }
+    
+    @include desktop {
+      gap: 1.5rem;
+    }
+    
+    @include xl-desktop {
+      gap: 2rem;
+    }
+  }
+}
+
+// Responsive navigation patterns
+.responsive-nav {
+  // Mobile-first navigation
+  &.mobile-menu {
+    @include mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--background);
+      transform: translateX(-100%);
+      @include smooth-transition(transform);
+      z-index: 100;
+      
+      &.open {
+        transform: translateX(0);
+      }
+    }
+    
+    @include desktop {
+      position: static;
+      transform: none;
+      background: transparent;
+      height: auto;
+      width: auto;
+    }
+  }
+  
+  // Horizontal to vertical navigation
+  &.horizontal-vertical {
+    display: flex;
+    
+    @include mobile {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+    
+    @include desktop {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  }
+}
+
+// Responsive card layouts
+.responsive-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  @include smooth-transition(transform, box-shadow);
+  
+  @include mobile {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  @include tablet {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-elegant);
+    }
+  }
+  
+  @include desktop {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-header {
+    margin-bottom: 1rem;
+    
+    @include mobile {
+      margin-bottom: 0.75rem;
+    }
+    
+    .card-title {
+      @include heading-3;
+      
+      @include mobile {
+        font-size: 1rem;
+      }
+    }
+    
+    .card-subtitle {
+      @include small-text;
+      color: var(--muted-foreground);
+      margin-top: 0.25rem;
+    }
+  }
+  
+  .card-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    
+    @include mobile {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    @include desktop {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+}
+
+// Responsive tables
+.responsive-table {
+  width: 100%;
+  overflow: hidden;
+  
+  @include mobile {
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      
+      table {
+        min-width: 600px;
+        font-size: 0.875rem;
+      }
+    }
+    
+    // Stack table for very narrow screens
+    &.stack-mobile {
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+      
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      
+      tr {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+      
+      td {
+        padding: 0.5rem 0;
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 0;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+          font-weight: 600;
+          color: var(--muted-foreground);
+        }
+      }
+    }
+  }
+  
+  @include desktop {
+    .table-wrapper {
+      overflow: visible;
+    }
+  }
+}
+
+// Responsive forms
+.responsive-form {
+  .form-grid {
+    display: grid;
+    gap: 1rem;
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .form-group {
+      &.full-width {
+        @include tablet {
+          grid-column: 1 / -1;
+        }
+      }
+      
+      &.half-width {
+        @include desktop {
+          grid-column: span 1;
+        }
+      }
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    
+    @include mobile {
+      flex-direction: column-reverse;
+    }
+    
+    @include tablet {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+}
+
+// Responsive modals and dialogs
+.responsive-modal {
+  @include mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    border-radius: 0;
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  @include tablet {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    border-radius: var(--radius);
+  }
+  
+  @include desktop {
+    max-width: 600px;
+  }
+}
+
+// Responsive image grids
+.responsive-image-grid {
+  display: grid;
+  gap: 0.5rem;
+  
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    @include smooth-transition(transform);
+    
+    @include desktop {
+      height: 250px;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+// Responsive flexbox utilities
+.responsive-flex {
+  display: flex;
+  
+  &.mobile-column {
+    @include mobile {
+      flex-direction: column;
+    }
+    
+    @include desktop {
+      flex-direction: row;
+    }
+  }
+  
+  &.tablet-wrap {
+    @include tablet {
+      flex-wrap: wrap;
+    }
+  }
+  
+  &.mobile-center {
+    @include mobile {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  &.desktop-between {
+    @include desktop {
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,10 +1,27 @@
-// Import SCSS modules using modern @use syntax (must come first)
+// Main SCSS entry point - Import order is critical for proper cascading
 @use 'variables' as *;
 @use 'mixins' as *;
+
+// Base styles first (reset, normalize, foundations)
+@use 'base';
+
+// Theme definitions (CSS custom properties)
 @use 'themes';
+
+// Layout patterns and responsive design
+@use 'layout';
+@use 'responsive';
+
+// Utility classes
+@use 'utilities';
+
+// Component-specific styles
 @use 'components';
+
+// Application-specific styles (last to override if needed)
 @use 'app';
 
+// Tailwind directives (after SCSS to allow overrides)
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,49 +1,270 @@
-// App-specific styles using SCSS
+// Application-specific styles using SCSS
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// Legacy app styles (converted to SCSS)
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+// Application-specific component styles
+.app-brand {
+  @include flex-center;
+  gap: 0.75rem;
+  
+  .brand-logo {
+    width: 2rem;
+    height: 2rem;
+    @include smooth-transition(transform);
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .brand-text {
+    @include heading-2;
+    font-weight: 700;
+    color: var(--primary);
+    
+    @include mobile {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// Dashboard specific styles
+.dashboard {
+  &-metrics {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &-metric-card {
+    @include card-base;
+    padding: 1.5rem;
+    text-align: center;
+    @include smooth-transition(transform, box-shadow);
+    
+    &:hover {
+      transform: translateY(-2px);
+      @include shadow-elegant;
+    }
+    
+    .metric-value {
+      @include heading-1;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      
+      @include mobile {
+        font-size: 1.75rem;
+      }
+    }
+    
+    .metric-label {
+      @include small-text;
+      color: var(--muted-foreground);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .metric-change {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      
+      &.positive {
+        color: var(--success);
+      }
+      
+      &.negative {
+        color: var(--destructive);
+      }
+    }
+  }
+}
+
+// Data table styles
+.data-table {
+  &-container {
+    @include card-base;
+    overflow: hidden;
+  }
+  
+  &-header {
+    @include flex-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--muted/50);
+    
+    .table-title {
+      @include heading-3;
+      color: var(--foreground);
+    }
+    
+    .table-actions {
+      @include flex-center;
+      gap: 0.75rem;
+    }
+  }
+  
+  &-content {
+    @include mobile {
+      padding: 0;
+    }
+    
+    @include desktop {
+      padding: 1rem;
+    }
+  }
+}
+
+// Status indicators
+.status {
+  &-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: calc(var(--radius) * 2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    
+    &.active {
+      background: rgba($success, 0.15);
+      color: var(--success);
+      border: 1px solid rgba($success, 0.3);
+    }
+    
+    &.inactive {
+      background: rgba($muted-foreground, 0.15);
+      color: var(--muted-foreground);
+      border: 1px solid rgba($muted-foreground, 0.3);
+    }
+    
+    &.pending {
+      background: rgba($warning, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba($warning, 0.3);
+    }
+    
+    &.error {
+      background: rgba($destructive, 0.15);
+      color: var(--destructive);
+      border: 1px solid rgba($destructive, 0.3);
+    }
+  }
+}
+
+// Form specific styles
+.form-section {
+  &-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    
+    .section-title {
+      @include heading-3;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+    
+    .section-description {
+      @include small-text;
+      color: var(--muted-foreground);
+    }
+  }
+}
+
+// Mobile specific application styles
+@include mobile {
+  .mobile-list-item {
+    @include card-base;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    
+    .item-header {
+      @include flex-between;
+      margin-bottom: 0.75rem;
+      
+      .item-title {
+        @include heading-3;
+        font-size: 1rem;
+        color: var(--foreground);
+      }
+      
+      .item-status {
+        font-size: 0.75rem;
+      }
+    }
+    
+    .item-content {
+      .item-details {
+        @include small-text;
+        color: var(--muted-foreground);
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+      }
+      
+      .item-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+        
+        .meta-item {
+          font-size: 0.75rem;
+          color: var(--muted-foreground);
+        }
+      }
+    }
+    
+    .item-actions {
+      @include flex-between;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+    }
+  }
+}
+
+// Loading and empty states
+.empty-state {
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  @include smooth-transition(filter);
+  padding: 3rem 1.5rem;
   
-  &:hover {
-    filter: drop-shadow(0 0 2em rgba(100, 108, 255, 0.67));
+  .empty-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem;
+    color: var(--muted-foreground);
+    opacity: 0.5;
   }
   
-  &.react:hover {
-    filter: drop-shadow(0 0 2em rgba(97, 218, 251, 0.67));
+  .empty-title {
+    @include heading-3;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
   }
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  .empty-description {
+    @include body-text;
+    color: var(--muted-foreground);
+    margin-bottom: 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .empty-action {
+    margin-top: 1rem;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: var(--muted-foreground);
 }
