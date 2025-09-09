@@ -1,40 +1,42 @@
 // SCSS Mixins for responsive design and utilities
+@use 'sass:list';
+@use 'sass:map';
 @use 'variables' as *;
 
 // Responsive Breakpoints
 @mixin mobile {
-  @media (max-width: map-get($breakpoints, mobile) - 1px) {
+  @media (max-width: map.get($breakpoints, mobile) - 1px) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: map-get($breakpoints, mobile)) and (max-width: map-get($breakpoints, tablet) - 1px) {
+  @media (min-width: map.get($breakpoints, mobile)) and (max-width: map.get($breakpoints, tablet) - 1px) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: map-get($breakpoints, tablet)) {
+  @media (min-width: map.get($breakpoints, tablet)) {
     @content;
   }
 }
 
 @mixin xl-desktop {
-  @media (min-width: map-get($breakpoints, xl)) {
+  @media (min-width: map.get($breakpoints, xl)) {
     @content;
   }
 }
 
 // Mobile-first responsive mixins
 @mixin min-width($breakpoint) {
-  @media (min-width: map-get($breakpoints, $breakpoint)) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
     @content;
   }
 }
 
 @mixin max-width($breakpoint) {
-  @media (max-width: map-get($breakpoints, $breakpoint) - 1px) {
+  @media (max-width: map.get($breakpoints, $breakpoint) - 1px) {
     @content;
   }
 }
@@ -43,9 +45,9 @@
 @mixin smooth-transition($properties...) {
   $property-list: ();
   @each $property in $properties {
-    $property-list: append($property-list, #{$property} #{$transition-smooth}, comma);
+    $property-list: list.append($property-list, #{$property} #{$transition-smooth}, comma);
   }
-  @if length($properties) == 0 {
+  @if list.length($properties) == 0 {
     transition: #{$transition-smooth};
   } @else {
     transition: $property-list;
@@ -55,9 +57,9 @@
 @mixin fast-transition($properties...) {
   $property-list: ();
   @each $property in $properties {
-    $property-list: append($property-list, #{$property} #{$transition-fast}, comma);
+    $property-list: list.append($property-list, #{$property} #{$transition-fast}, comma);
   }
-  @if length($properties) == 0 {
+  @if list.length($properties) == 0 {
     transition: #{$transition-fast};
   } @else {
     transition: $property-list;
@@ -67,9 +69,9 @@
 @mixin slow-transition($properties...) {
   $property-list: ();
   @each $property in $properties {
-    $property-list: append($property-list, #{$property} #{$transition-slow}, comma);
+    $property-list: list.append($property-list, #{$property} #{$transition-slow}, comma);
   }
-  @if length($properties) == 0 {
+  @if list.length($properties) == 0 {
     transition: #{$transition-slow};
   } @else {
     transition: $property-list;
@@ -196,8 +198,8 @@
   box-shadow: 0 2px 8px -2px hsl(217, 19%, 27%, 0.08);
 }
 
-@mixin shadow-glow($color: $primary-glow) {
-  box-shadow: 0 0 40px hsl($color, 0.4);
+@mixin shadow-glow($opacity: 0.4) {
+  box-shadow: 0 0 40px hsla(217, 91%, 45%, $opacity);
 }
 
 // Form mixins
